@@ -9,6 +9,7 @@ namespace WindFrostBot.SDK
         public string HostIP = "127.0.0.1";
         public ushort Port = 8081;
         public List<long> Admins = new List<long>();
+        public List<long> Owners = new List<long>();
         public List<long> QGroups = new List<long>();
     }
 }

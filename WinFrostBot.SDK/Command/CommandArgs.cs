@@ -9,6 +9,22 @@ namespace WindFrostBot.SDK
         public List<string> Parameters { get; private set; }
         public long Account = 0;
         public long Group = 0;
+        public bool IsOwnner()
+        {
+            if (MainSDK.BotConfig.Owners.Contains(Account))
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool IsAdmin()
+        {
+            if (MainSDK.BotConfig.Owners.Contains(Account) || MainSDK.BotConfig.Admins.Contains(Account))
+            {
+                return true;
+            }
+            return false;
+        }
         public QCommand Api { get; private set; }
         public CommandArgs(string msg,List<string> args, QCommand cmd)
         {
@@ -31,7 +47,7 @@ namespace WindFrostBot.SDK
                     return ValueTask.CompletedTask;
                 }
                 string text = eventArgs.Message.ToString();//接收的所有消息
-                string msg = text.Split(" ")[0];//指令消息
+                string msg = text.Split(" ")[0].ToLower();//指令消息
                 List<string> arg = text.Split(" ").ToList();
                 arg.Remove(text.Split(" ")[0]);//除去指令消息的其他段消息
                 var cmd =  Coms.Find(c => c.Names.Contains(msg));
