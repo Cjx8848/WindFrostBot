@@ -50,16 +50,12 @@ namespace WindFrostBot.SDK
         }
         public static bool IsAdmin(long account)
         {
-            bool isadmin = false;
-            foreach(var acc in MainSDK.BotConfig.Admins)
+            //bool isadmin = false;
+            if (MainSDK.BotConfig.Admins.Contains(account) || MainSDK.BotConfig.Owners.Contains(account))
             {
-                if (acc == account)
-                {
-                    isadmin = true;
-                    break;
-                }
+                return true;
             }
-            return isadmin;
+            return false;
         }
     }
 }

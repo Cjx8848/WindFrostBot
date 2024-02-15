@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sora.EventArgs.SoraEvent;
+using System;
 
 namespace WindFrostBot.SDK
 {
@@ -9,6 +10,8 @@ namespace WindFrostBot.SDK
         public List<string> Parameters { get; private set; }
         public long Account = 0;
         public long Group = 0;
+        public GroupMessageEventArgs EventArgs { get; private set; }
+
         public bool IsOwnner()
         {
             if (MainSDK.BotConfig.Owners.Contains(Account))
@@ -26,13 +29,14 @@ namespace WindFrostBot.SDK
             return false;
         }
         public QCommand Api { get; private set; }
-        public CommandArgs(string msg,List<string> args, QCommand cmd)
+        public CommandArgs(string msg,List<string> args,GroupMessageEventArgs eventarg, QCommand cmd)
         {
             Parameters = args;
             Message = msg;
             Account = cmd.Account;
             Group = cmd.Group;
             Api = cmd;
+            EventArgs = eventarg;
         }
     }
     public class CommandManager
@@ -57,7 +61,7 @@ namespace WindFrostBot.SDK
                     {
                         try
                         {
-                            cmd.Run(msg, arg, new QCommand(eventArgs));
+                            cmd.Run(msg, arg, eventArgs,new QCommand(eventArgs));
                         }
                         catch (Exception ex)
                         {
@@ -129,11 +133,11 @@ namespace WindFrostBot.SDK
         }
         public List<string> Names = new List<string>();
         public string HelpText = "";
-        public bool Run(string msg,List<string> parms,QCommand cmd)
+        public bool Run(string msg,List<string> parms,GroupMessageEventArgs eventargs,QCommand cmd)
         {
             try
             {
-                cd(new CommandArgs(msg, parms, cmd));
+                cd(new CommandArgs(msg, parms,eventargs, cmd));
             }
             catch(Exception ex)
             {
