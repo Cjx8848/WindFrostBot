@@ -8,13 +8,31 @@ using ProtoBuf.Meta;
 using YukariToolBox.LightLog;
 using System.Threading.Tasks;
 using Sora.Util;
+using System.Reflection;
+using System.Runtime.Loader;
 
 namespace WindFrostBot
 {
     public class Program
     {
+        static void Init()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, eventArgs) =>
+            {
+                string assemblyName = new AssemblyName(eventArgs.Name).Name;
+                string path = Path.Combine(AppContext.BaseDirectory, "bin", $"{assemblyName}.dll");
+
+                if (File.Exists(path))
+                {
+                    return AssemblyLoadContext.Default.LoadFromAssemblyPath(path);
+                }
+
+                return null;
+            };
+        }
         static void Main(string[] arg)
         {
+            Init();
             AnsiConsole.Write(new FigletText("WindFrostBot").Color(Spectre.Console.Color.Aqua));
             ConfigWriter.ReloadConfig();
             Message.LogWriter.StartLog();
