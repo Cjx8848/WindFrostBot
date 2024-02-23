@@ -9,9 +9,9 @@ namespace WindFrostBot
     {
         public static void Init(Plugin plugin)
         {
-            CommandManager.InitSoraCommand(plugin, AddGroup, "添加管理员指令", "添加管理");
-            CommandManager.InitSoraCommand(plugin, RemoveGroup, "移除管理员指令", "删除管理","移除管理");
-            CommandManager.InitSoraCommand(plugin, GetGroupList, "获取管理列表", "管理列表");
+            CommandManager.InitSoraCommand(plugin, AddGroup, "添加管理员指令", "添加群聊");
+            CommandManager.InitSoraCommand(plugin, RemoveGroup, "移除管理员指令", "删除群聊","移除群聊");
+            CommandManager.InitSoraCommand(plugin, GetGroupList, "获取管理列表", "群聊列表");
         }
         public static void AddGroup(CommandArgs args)
         {

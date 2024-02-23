@@ -117,9 +117,9 @@ namespace WindFrostBot
             const int itemsPerPage = 20;
             const int imageWidth = 1536;
             const int startX = 0;
-            const int startY = 300;
-            const int itemHeight = 195;
-            const int itemWidth = 330;
+            const int startY = 250;
+            const int itemHeight = 150;
+            const int itemWidth = 350;
             Image image = Image.FromFile(Directory.GetCurrentDirectory() + "/Pictures/admin.png");
             if(image == null)
             {
@@ -127,8 +127,8 @@ namespace WindFrostBot
             }
             using (Graphics graphics = Graphics.FromImage(image))
             {
-                DrawText(graphics, "CSFT亚共体机器人系统", new Font("Heavy", 80), Color.White, new PointF(320, 1));
-                DrawText(graphics, "管理员列表", new Font("Heavy", 60), Color.White, new PointF(700, 150));
+                DrawText(graphics, "CSFT亚共体机器人系统", new Font("Heavy", 100), Color.White, new PointF(320, 20));
+                DrawText(graphics, "管理员列表", new Font("Heavy", 60), Color.White, new PointF(730, 150));
                 var allAdmins = GetCombinedAdminList();
                 int totalPages = (int)Math.Ceiling(allAdmins.Count / (double)itemsPerPage);
                 pageNumber = Math.Clamp(pageNumber, 1, totalPages);
@@ -163,10 +163,10 @@ namespace WindFrostBot
                     break;
                 }
             }
-            Image adminImage = GetQQImgAsync(adminId).Result; // 假设 GetHD 方法获取头像，并且 ToImg 方法将其转换为 Image 对象
+            Image adminImage = GetQQImgAsync(adminId).Result;
             graphics.DrawImageUnscaledAndClipped(adminImage, rect);
             using (Font font = new Font("Heavy", 20))
-            using (SolidBrush brush = new SolidBrush(Color.Black)) // 使用黑色绘制文本
+            using (SolidBrush brush = new SolidBrush(Color.Black))
             {
                 graphics.DrawString($"QQ号: {adminId}", font, brush, new PointF(rect.X + rect.Width + 10, rect.Y + 20));
                 graphics.DrawString(nickname, font, brush, new PointF(rect.X + rect.Width + 10, rect.Y + rect.Height / 2 + 10));
