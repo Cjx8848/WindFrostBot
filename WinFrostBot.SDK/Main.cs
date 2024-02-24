@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using Sora.Interfaces;
 
 namespace WindFrostBot.SDK
@@ -7,6 +8,7 @@ namespace WindFrostBot.SDK
     {
         public static Config BotConfig { get; set; }
         public static ISoraService service { get; set; }
+        public static IDbConnection Db { get; set; }
     }
     public abstract class Plugin
     {

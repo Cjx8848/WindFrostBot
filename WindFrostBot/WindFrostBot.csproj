@@ -10,7 +10,7 @@
   <Target Name="MoveFilesToBin" AfterTargets="AfterBuild">
     <!-- 指定要移动的文件类型，这里以 .dll 为例 -->
     <ItemGroup>
-      <FilesToMove Include="$(OutputPath)*.dll;$(OutputPath)*.pdb" Exclude = "$(OutputPath)WindFrostBot.dll;$(OutputPath)WindFrostBot.SDK.dll;$(OutputPath)Spectre.Console.dll"/>
+      <FilesToMove Include="$(OutputPath)*.dll;$(OutputPath)*.pdb" Exclude="$(OutputPath)WindFrostBot.dll;$(OutputPath)WindFrostBot.SDK.dll;$(OutputPath)Spectre.Console.dll" />
     </ItemGroup>
 
     <!-- 创建 bin 目录（如果不存在） -->
@@ -22,6 +22,7 @@
   </Target>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
