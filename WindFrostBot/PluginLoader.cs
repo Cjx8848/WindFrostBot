@@ -41,7 +41,8 @@ public static class PluginLoader
                 Assembly assembly;
                 try
                 {
-                    assembly = Assembly.LoadFrom(pluginPath);
+                    byte[] assemblyData = File.ReadAllBytes(pluginPath);
+                    assembly = Assembly.Load(assemblyData);
                 }
                 catch (BadImageFormatException)
                 {
