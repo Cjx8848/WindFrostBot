@@ -10,7 +10,7 @@ namespace WindFrostBot.SDK
         public List<string> Parameters { get; private set; }
         public long Account = 0;
         public long Group = 0;
-        public GroupMessageEventArgs EventArgs { get; private set; }
+        //public GroupMessageEventArgs EventArgs { get; private set; }
 
         public bool IsOwnner()
         {
@@ -29,14 +29,14 @@ namespace WindFrostBot.SDK
             return false;
         }
         public QCommand Api { get; private set; }
-        public CommandArgs(string msg,List<string> args,GroupMessageEventArgs eventarg, QCommand cmd)
+        public CommandArgs(string msg,List<string> args, QCommand cmd)
         {
             Parameters = args;
             Message = msg;
             Account = cmd.Account;
             Group = cmd.Group;
             Api = cmd;
-            EventArgs = eventarg;
+            //EventArgs = eventarg;
         }
     }
     public class CommandManager
@@ -44,6 +44,7 @@ namespace WindFrostBot.SDK
         public static List<Command> Coms = new List<Command>();
         public static void InitCommandToSora()
         {
+            //群聊部分
             MainSDK.service.Event.OnGroupMessage += (sender, eventArgs) =>
             {
                 if (!Utils.CanSend(eventArgs.SourceGroup.Id))
@@ -61,7 +62,7 @@ namespace WindFrostBot.SDK
                     {
                         try
                         {
-                            cmd.Run(msg, arg, eventArgs,new QCommand(eventArgs));
+                            cmd.Run(msg, arg,new QCommand(eventArgs));
                         }
                         catch (Exception ex)
                         {
@@ -71,10 +72,57 @@ namespace WindFrostBot.SDK
                 }
                 return ValueTask.CompletedTask;
             };
+            //私聊部分
+            MainSDK.service.Event.OnPrivateMessage += (sender, eventArgs) =>
+            {
+                //if (!Utils.CanSend(eventArgs.SourceGroup.Id))
+                //{
+                    //return ValueTask.CompletedTask;
+                //}
+                string text = eventArgs.Message.ToString();//接收的所有消息
+                string msg = text.Split(" ")[0].ToLower();//指令消息
+                List<string> arg = text.Split(" ").ToList();
+                arg.Remove(text.Split(" ")[0]);//除去指令消息的其他段消息
+                var cmd = Coms.Find(c => c.Names.Contains(msg));
+                if (cmd != null)
+                {
+                    if (cmd.Type == 1)
+                    {
+                        try
+                        {
+                            cmd.Run(msg, arg, new QCommand(eventArgs));
+                        }
+                        catch (Exception ex)
+                        {
+                            Message.LogErro(ex.Message);
+                        }
+                    }
+                }
+                return ValueTask.CompletedTask;
+            };
+            MainSDK.service.Event.OnGroupRequest += (sender, eventArgs) =>
+            {
+                if (Utils.IsOwner(eventArgs.Sender.Id))
+                {
+                    eventArgs.Accept();
+                }
+                return ValueTask.CompletedTask;
+            };
+            //MainSDK.service.Event. += (sender, eventArgs) =>
+            //{
+                //eventArgs.EventName
+                //return ValueTask.CompletedTask;
+            //};
         }
-        public static void InitSoraCommand(Plugin plugin,ComDelegate cmd,string cmdinfo,params string[] cmdnames)
+        public static void InitGroupCommand(Plugin plugin,ComDelegate cmd,string cmdinfo,params string[] cmdnames)
         {
             Command com = new Command(cmd, cmdinfo, 0, cmdnames);
+            plugin.Commands.Add(com);
+            Coms.Add(com);
+        }
+        public static void InitPrivateCommand(Plugin plugin, ComDelegate cmd, string cmdinfo, params string[] cmdnames)
+        {
+            Command com = new Command(cmd, cmdinfo, 1, cmdnames);
             plugin.Commands.Add(com);
             Coms.Add(com);
         }
@@ -133,11 +181,11 @@ namespace WindFrostBot.SDK
         }
         public List<string> Names = new List<string>();
         public string HelpText = "";
-        public bool Run(string msg,List<string> parms,GroupMessageEventArgs eventargs,QCommand cmd)
+        public bool Run(string msg,List<string> parms,QCommand cmd)
         {
             try
             {
-                cd(new CommandArgs(msg, parms,eventargs, cmd));
+                cd(new CommandArgs(msg, parms, cmd));
             }
             catch(Exception ex)
             {

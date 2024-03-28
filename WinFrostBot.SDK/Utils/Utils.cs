@@ -1,4 +1,5 @@
 ﻿using Sora.Entities;
+using Sora.Entities.Info;
 using Sora.Entities.Segment;
 using System;
 using System.Drawing;
@@ -35,6 +36,11 @@ namespace WindFrostBot.SDK
                     break;
             }
         }
+        public static List<GroupMemberInfo> GetGroupMemembers(long group)
+        {
+            return MainSDK.service.GetApi(MainSDK.service.ServiceId).GetGroupMemberList(group).Result.groupMemberList;
+        }
+        //判断群聊列表
         public static bool CanSend(long group)
         {
             bool cansend = false;
@@ -48,10 +54,19 @@ namespace WindFrostBot.SDK
             }
             return cansend;
         }
+        //判断Admin
         public static bool IsAdmin(long account)
         {
-            //bool isadmin = false;
             if (MainSDK.BotConfig.Admins.Contains(account) || MainSDK.BotConfig.Owners.Contains(account))
+            {
+                return true;
+            }
+            return false;
+        }
+        //判断Owner
+        public static bool IsOwner(long account)
+        {
+            if (MainSDK.BotConfig.Owners.Contains(account))
             {
                 return true;
             }

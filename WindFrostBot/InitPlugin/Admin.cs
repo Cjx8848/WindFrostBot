@@ -1,7 +1,5 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Sora.Entities.Info;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using WindFrostBot.SDK;
@@ -12,9 +10,9 @@ namespace WindFrostBot
     {
         public static void Init(Plugin plugin)
         {
-            CommandManager.InitSoraCommand(plugin, AddAdmin, "添加管理员指令", "添加管理");
-            CommandManager.InitSoraCommand(plugin, RemoveAdmin, "移除管理员指令", "删除管理","移除管理");
-            CommandManager.InitSoraCommand(plugin, GetAdminList, "获取管理列表", "管理列表");
+            CommandManager.InitGroupCommand(plugin, AddAdmin, "添加管理员指令", "添加管理");
+            CommandManager.InitGroupCommand(plugin, RemoveAdmin, "移除管理员指令", "删除管理","移除管理");
+            CommandManager.InitGroupCommand(plugin, GetAdminList, "获取管理列表", "管理列表");
         }
         public static void AddAdmin(CommandArgs args)
         {
@@ -98,7 +96,7 @@ namespace WindFrostBot
                     return;
                 }
             }
-            Image img = DrawAdminList(args.EventArgs.SourceGroup.GetGroupMemberList().Result.groupMemberList, page);
+            Image img = DrawAdminList(args.Api.GetGroupMemembers(), page);
             if(img != null)
             {
                 args.Api.SendImage(img);
