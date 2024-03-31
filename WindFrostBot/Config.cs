@@ -1,4 +1,5 @@
 ﻿using System;
+using JsonTool;
 using Newtonsoft.Json;
 using WindFrostBot.SDK;
 
@@ -6,71 +7,26 @@ namespace WindFrostBot
 {
     public class ConfigWriter
     {
-        public static Action<Config> ConfigR;
-        public static readonly string ConfigPath = Path.Combine(AppContext.BaseDirectory, "Config.json");
-        public static Config Read(string Path)
+        public static JsonRw<Config> Config;
+        public static Config GetConfig()
         {
-            bool flag = !File.Exists(Path);
-            Config result;
-            if (flag)
-            {
-                result = new Config
-                {
-
-                };
-            }
-            else
-            {
-                using (FileStream fileStream = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.Read))
-                {
-                    result = Read(fileStream);
-                }
-            }
-            return result;
+            return Config.ConfigObj;
         }
-        public static void WriteConfig()
+        public static readonly string ConfigPath = Path.Combine(AppContext.BaseDirectory, "Conifg.json");
+        public static void InitConfig()
         {
-            File.WriteAllText(ConfigPath, JsonConvert.SerializeObject(MainSDK.BotConfig));
-            ReloadConfig();
+            var setting = new Config();
+            var json = new JsonRw<Config>(ConfigPath, setting);
+            json.OnError += OnError;
+            json.OnCreating += OnCreating;
         }
-        public static void ReloadConfig()
+        static void OnError(object sender, ErrorEventArgs e)
         {
-            try
-            {
-                MainSDK.BotConfig = Read(ConfigPath);
-                Write(ConfigPath,MainSDK.BotConfig);
-            }
-            catch (Exception ex)
-            {
-
-            }
+            Message.LogErro("机器人框架配置读取错误:" + e.GetException().ToString());
         }
-        public static Config Read(Stream stream)
+        static void OnCreating(object sender, CreatingEvent e)
         {
-            Config result;
-            using (StreamReader streamReader = new StreamReader(stream))
-            {
-                Config configFile = JsonConvert.DeserializeObject<Config>(streamReader.ReadToEnd());
-                bool flag = ConfigR != null;
-                if (flag)
-                {
-                    ConfigR(configFile);
-                }
-                result = configFile;
-            }
-            return result;
-        }
-
-        public static void Write(string Path,Config config)
-        {
-            using (FileStream fileStream = new FileStream(Path, FileMode.Create, FileAccess.Write, FileShare.Write))
-            {
-                string value = JsonConvert.SerializeObject(config, Formatting.Indented);
-                using (StreamWriter streamWriter = new StreamWriter(fileStream))
-                {
-                    streamWriter.Write(value);
-                }
-            }
+            Message.Info("自动生成机器人初始配置...");
         }
     }
 }

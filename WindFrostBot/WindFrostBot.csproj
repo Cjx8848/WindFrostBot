@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\JsonTool\JsonTool.csproj" />
     <ProjectReference Include="..\WinFrostBot.SDK\WindFrostBot.SDK.csproj" />
   </ItemGroup>
 
