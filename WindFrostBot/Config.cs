@@ -19,6 +19,7 @@ namespace WindFrostBot
             var json = new JsonRw<Config>(ConfigPath, setting);
             json.OnError += OnError;
             json.OnCreating += OnCreating;
+            Config = json;
         }
         static void OnError(object sender, ErrorEventArgs e)
         {
