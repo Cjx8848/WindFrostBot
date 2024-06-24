@@ -9,9 +9,9 @@ namespace WindFrostBot
     {
         public static void Init(Plugin plugin)
         {
-            CommandManager.InitSoraCommand(plugin, AddGroup, "添加管理员指令", "添加群聊");
-            CommandManager.InitSoraCommand(plugin, RemoveGroup, "移除管理员指令", "删除群聊","移除群聊");
-            CommandManager.InitSoraCommand(plugin, GetGroupList, "获取管理列表", "群聊列表");
+            CommandManager.InitGroupCommand(plugin, AddGroup, "添加管理员指令", "添加群聊");
+            CommandManager.InitGroupCommand(plugin, RemoveGroup, "移除管理员指令", "删除群聊","移除群聊");
+            CommandManager.InitGroupCommand(plugin, GetGroupList, "获取管理列表", "群聊列表");
         }
         public static void AddGroup(CommandArgs args)
         {
@@ -34,7 +34,7 @@ namespace WindFrostBot
                 }
                 MainSDK.BotConfig.QGroups.Add(group);
                 args.Api.SendTextMessage("操作成功.");
-                ConfigWriter.WriteConfig();
+                ConfigWriter.Config.WriteConfig();
             }
             else
             {
@@ -62,7 +62,7 @@ namespace WindFrostBot
                 }
                 MainSDK.BotConfig.QGroups.Remove(group);
                 args.Api.SendTextMessage("操作成功.");
-                ConfigWriter.WriteConfig();
+                ConfigWriter.Config.WriteConfig();
             }
             else
             {

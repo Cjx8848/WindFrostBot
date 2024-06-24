@@ -34,7 +34,7 @@ namespace WindFrostBot
         {
             Init();
             AnsiConsole.Write(new FigletText("WindFrostBot").Color(Spectre.Console.Color.Aqua));
-            ConfigWriter.ReloadConfig();
+            ConfigWriter.InitConfig();
             Message.LogWriter.StartLog();
             DataBase.Init();
             Message.BlueText("WindFrostBot1.0 正在启动...");

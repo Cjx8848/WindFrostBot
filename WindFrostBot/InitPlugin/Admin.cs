@@ -35,7 +35,7 @@ namespace WindFrostBot
                 }
                 MainSDK.BotConfig.Admins.Add(qq);
                 args.Api.SendTextMessage("操作成功.");
-                ConfigWriter.WriteConfig();
+                ConfigWriter.Config.WriteConfig();
             }
             else
             {
@@ -63,7 +63,7 @@ namespace WindFrostBot
                 }
                 MainSDK.BotConfig.Admins.Remove(qq);
                 args.Api.SendTextMessage("操作成功.");
-                ConfigWriter.WriteConfig();
+                ConfigWriter.Config.WriteConfig();
             }
             else
             {

@@ -12,7 +12,7 @@ namespace WindFrostBot
         {
             return Config.ConfigObj;
         }
-        public static readonly string ConfigPath = Path.Combine(AppContext.BaseDirectory, "Conifg.json");
+        public static readonly string ConfigPath = Path.Combine(AppContext.BaseDirectory, "Config.json");
         public static void InitConfig()
         {
             var setting = new Config();
@@ -20,6 +20,7 @@ namespace WindFrostBot
             json.OnError += OnError;
             json.OnCreating += OnCreating;
             Config = json;
+            MainSDK.BotConfig = json.ConfigObj;
         }
         static void OnError(object sender, ErrorEventArgs e)
         {
