@@ -8,6 +8,23 @@ namespace WindFrostBot.SDK
 {
     public class Utils
     {
+        public static void SendDataMessage(MemoryStream stream,string name, long group, int type = 0)
+        {
+            switch (type)
+            {
+                case 0:
+                    var path = $"{AppContext.BaseDirectory}/cd.zip";
+                    FileStream file = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
+                    byte[] b = stream.ToArray();
+                    file.Write(b, 0, b.Length);
+                    file.Close();
+                    MainSDK.service.GetApi(MainSDK.service.ServiceId).UploadGroupFile(group, path, name);
+                    File.Delete(path);
+                    break;
+                default:
+                    break;
+            }
+        }
         public static void SendTextMessage(string message,long group,int type = 0)
         {
             switch (type)

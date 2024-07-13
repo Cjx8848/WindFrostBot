@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Sora.Util;
 using System.Reflection;
 using System.Runtime.Loader;
+using Sora.EventArgs.SoraEvent;
 
 namespace WindFrostBot
 {
@@ -87,10 +88,14 @@ namespace WindFrostBot
             #endregion
             MainSDK.service.Event.OnGroupRequest += async (msgType, eventArgs) =>
             {
-                if (Utils.IsAdmin(eventArgs.Sender.Id))
+                if (Utils.IsOwner(eventArgs.Sender.Id))
                 {
                     await eventArgs.Accept();
                 }
+            };
+            MainSDK.service.Event.OnGroupMemberChange += async (msgType, eventArgs) =>
+            {
+                MainSDK.OnGroupMemberChange.ExecuteAll(eventArgs);
             };
             CommandManager.InitCommandToSora();
             await MainSDK.service.StartService().RunCatch(e => Log.Error("Sora Service", Log.ErrorLogBuilder(e)));

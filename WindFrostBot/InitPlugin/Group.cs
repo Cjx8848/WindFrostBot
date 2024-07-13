@@ -57,7 +57,7 @@ namespace WindFrostBot
                 }
                 if (!MainSDK.BotConfig.QGroups.Contains(group))
                 {
-                    args.Api.SendTextMessage("此用户非管理.");
+                    args.Api.SendTextMessage("此群聊不存在.");
                     return;
                 }
                 MainSDK.BotConfig.QGroups.Remove(group);
@@ -77,7 +77,7 @@ namespace WindFrostBot
                 return;
             }
             List<string> listtext = new List<string>();
-            listtext.Add($"[{MainSDK.BotConfig.BotName}]管理列表:");
+            listtext.Add($"[{MainSDK.BotConfig.BotName}]群聊列表:");
             foreach(var group in MainSDK.BotConfig.QGroups)
             {
                 listtext.Add($"群号:[{group}]");
