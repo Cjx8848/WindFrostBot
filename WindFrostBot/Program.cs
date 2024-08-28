@@ -88,6 +88,7 @@ namespace WindFrostBot
             #endregion
             MainSDK.service.Event.OnGroupRequest += async (msgType, eventArgs) =>
             {
+                MainSDK.OnGroupRequest.ExecuteAll(eventArgs);
                 if (Utils.IsOwner(eventArgs.Sender.Id))
                 {
                     await eventArgs.Accept();

@@ -235,10 +235,10 @@
           }
         }
       },
-      "protobuf-net/3.2.26": {
+      "protobuf-net/3.2.30": {
         "type": "package",
         "dependencies": {
-          "protobuf-net.Core": "3.2.26"
+          "protobuf-net.Core": "3.2.30"
         },
         "compile": {
           "lib/net6.0/protobuf-net.dll": {
@@ -251,7 +251,7 @@
           }
         }
       },
-      "protobuf-net.Core/3.2.26": {
+      "protobuf-net.Core/3.2.30": {
         "type": "package",
         "dependencies": {
           "System.Collections.Immutable": "7.0.0"
@@ -267,7 +267,7 @@
           }
         }
       },
-      "Sora/1.4.1": {
+      "Sora/1.4.3": {
         "type": "package",
         "dependencies": {
           "Fleck": "1.2.0",
@@ -276,7 +276,7 @@
           "System.Reactive": "6.0.0",
           "Websocket.Client": "5.0.0",
           "YukariToolBox.LightLog": "3.0.9",
-          "protobuf-net": "3.2.26"
+          "protobuf-net": "3.2.30"
         },
         "compile": {
           "lib/net6.0/Sora.dll": {
@@ -1127,10 +1127,10 @@
         "packageIcon.png"
       ]
     },
-    "protobuf-net/3.2.26": {
-      "sha512": "zBzBiKs4yP+tzQOsRA5WbI/zayS6eFv8g0KIKNPI7/RUY1nk9Oe+STmtbUYkNUkO3T3SidEoZv+tF1nmgTSutQ==",
+    "protobuf-net/3.2.30": {
+      "sha512": "C/UTlmxEJHAHpqm8xQK1UyJKaIynVCSNG4mVrbLgnZ7ccH28nN49O8iMJvKEodTgVbnimvy+3mIiAdW6mATwnw==",
       "type": "package",
-      "path": "protobuf-net/3.2.26",
+      "path": "protobuf-net/3.2.30",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1142,15 +1142,15 @@
         "lib/netstandard2.0/protobuf-net.xml",
         "lib/netstandard2.1/protobuf-net.dll",
         "lib/netstandard2.1/protobuf-net.xml",
-        "protobuf-net.3.2.26.nupkg.sha512",
+        "protobuf-net.3.2.30.nupkg.sha512",
         "protobuf-net.nuspec",
         "protobuf-net.png"
       ]
     },
-    "protobuf-net.Core/3.2.26": {
-      "sha512": "s8oJW9dBVxix4p8uqMbeG++DIGjgzOFAKoP2i5wayeeFOKBqG+cCBO2S/CAC4MAFlb5m1Os2m/miLcqRCgqJ7Q==",
+    "protobuf-net.Core/3.2.30": {
+      "sha512": "v2ZxxYrz+X212ukSx+uqkLuPu414bvmSAnTyf+PBUKR9ENJxO4P/csorA/27456MCp1JNoMssDj/f91RDiwBfQ==",
       "type": "package",
-      "path": "protobuf-net.core/3.2.26",
+      "path": "protobuf-net.core/3.2.30",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1162,22 +1162,22 @@
         "lib/netstandard2.0/protobuf-net.Core.xml",
         "lib/netstandard2.1/protobuf-net.Core.dll",
         "lib/netstandard2.1/protobuf-net.Core.xml",
-        "protobuf-net.core.3.2.26.nupkg.sha512",
+        "protobuf-net.core.3.2.30.nupkg.sha512",
         "protobuf-net.core.nuspec",
         "protobuf-net.png"
       ]
     },
-    "Sora/1.4.1": {
-      "sha512": "Ga1Qru5e/jfB0Q0BTUlQxakyhkvcftqEN+tUJERc543LbmkCE6nkFwhuyaGrcgf7g4IOU4q22/BxXH0pu6zkig==",
+    "Sora/1.4.3": {
+      "sha512": "zX+EbN4QY+pWJBDL8ZyS29totb0tE3QKbKQTdfRAtym/g1HJRt06+dXsV/3OIfRt5JfIWQ8c+utUF+WBp9J1gQ==",
       "type": "package",
-      "path": "sora/1.4.1",
+      "path": "sora/1.4.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "icon.png",
         "lib/net6.0/Sora.dll",
         "lib/net6.0/Sora.xml",
-        "sora.1.4.1.nupkg.sha512",
+        "sora.1.4.3.nupkg.sha512",
         "sora.nuspec"
       ]
     },
@@ -2348,7 +2348,7 @@
     "net6.0": [
       "MySql.Data >= 8.3.0",
       "Newtonsoft.Json >= 13.0.3",
-      "Sora >= 1.4.1",
+      "Sora >= 1.4.3",
       "System.Drawing.Common >= 8.0.1"
     ]
   },
@@ -2407,7 +2407,7 @@
           },
           "Sora": {
             "target": "Package",
-            "version": "[1.4.1, )"
+            "version": "[1.4.3, )"
           },
           "System.Drawing.Common": {
             "target": "Package",

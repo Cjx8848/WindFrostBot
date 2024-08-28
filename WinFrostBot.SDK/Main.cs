@@ -12,6 +12,8 @@ namespace WindFrostBot.SDK
         public static IDbConnection Db { get; set; }
 
         public static FunctionManager<GroupMemberChangeEventArgs> OnGroupMemberChange = new FunctionManager<GroupMemberChangeEventArgs>();
+        public static FunctionManager<AddGroupRequestEventArgs> OnGroupRequest = new FunctionManager<AddGroupRequestEventArgs>();
+
     }
     public abstract class Plugin
     {
@@ -25,12 +27,12 @@ namespace WindFrostBot.SDK
     }
     public class FunctionManager<T>
     {
-        private List<Action<GroupMemberChangeEventArgs>> functions = new List<Action<GroupMemberChangeEventArgs>>();
-        public void AddFunction(Action<GroupMemberChangeEventArgs> func)
+        private List<Action<T>> functions = new List<Action<T>>();
+        public void AddFunction(Action<T> func)
         {
             functions.Add(func);
         }
-        public void ExecuteAll(GroupMemberChangeEventArgs args)
+        public void ExecuteAll(T args)
         {
             foreach (var func in functions)
             {

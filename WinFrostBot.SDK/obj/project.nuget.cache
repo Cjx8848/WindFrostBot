@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FE/e4BskB0XbjHQ65Bc4c1PILznFRqbVYr0yalilXJOAlXEJeLNCOckZSgeOHw2rnbtjze/K2SRf2Dg4Xox0uQ==",
+  "dgSpecHash": "+eihSZuxy4YbMk3cnO/2CwvAoFU5Dh4BRRrZhqptJdvgVPkGwcB6lL0ypiSkEy/aL1g5Bva/pl6Vb6sT9XpY7w==",
   "success": true,
   "projectFilePath": "C:\\Users\\cjx01\\Desktop\\项目\\CSharp\\Bot\\QQ\\WinFrostBot.SDK\\WindFrostBot.SDK.csproj",
   "expectedPackageFiles": [
@@ -18,9 +18,9 @@
     "C:\\Users\\cjx01\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
     "C:\\Users\\cjx01\\.nuget\\packages\\mysql.data\\8.3.0\\mysql.data.8.3.0.nupkg.sha512",
     "C:\\Users\\cjx01\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
-    "C:\\Users\\cjx01\\.nuget\\packages\\protobuf-net\\3.2.26\\protobuf-net.3.2.26.nupkg.sha512",
-    "C:\\Users\\cjx01\\.nuget\\packages\\protobuf-net.core\\3.2.26\\protobuf-net.core.3.2.26.nupkg.sha512",
-    "C:\\Users\\cjx01\\.nuget\\packages\\sora\\1.4.1\\sora.1.4.1.nupkg.sha512",
+    "C:\\Users\\cjx01\\.nuget\\packages\\protobuf-net\\3.2.30\\protobuf-net.3.2.30.nupkg.sha512",
+    "C:\\Users\\cjx01\\.nuget\\packages\\protobuf-net.core\\3.2.30\\protobuf-net.core.3.2.30.nupkg.sha512",
+    "C:\\Users\\cjx01\\.nuget\\packages\\sora\\1.4.3\\sora.1.4.3.nupkg.sha512",
     "C:\\Users\\cjx01\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\cjx01\\.nuget\\packages\\system.collections.immutable\\7.0.0\\system.collections.immutable.7.0.0.nupkg.sha512",
     "C:\\Users\\cjx01\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.1\\system.configuration.configurationmanager.4.4.1.nupkg.sha512",

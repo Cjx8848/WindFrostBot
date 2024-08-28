@@ -3,6 +3,7 @@ using Sora.Entities.Info;
 using Sora.Entities.Segment;
 using System;
 using System.Drawing;
+using System.Security.Principal;
 
 namespace WindFrostBot.SDK
 {
@@ -20,6 +21,25 @@ namespace WindFrostBot.SDK
                     file.Close();
                     MainSDK.service.GetApi(MainSDK.service.ServiceId).UploadGroupFile(group, path, name);
                     File.Delete(path);
+                    break;
+                default:
+                    break;
+            }
+        }
+        public void SendMessage(long group,string message, Image img,int type = 0)
+        {
+            MemoryStream ms = new MemoryStream();
+            img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            Stream stream = new MemoryStream(ms.ToArray());
+            MessageBody body = new MessageBody(new List<SoraSegment>()
+                    {
+                             SoraSegment.Text(message),
+                             SoraSegment.Image(stream), // 生成图片消息段
+                     });
+            switch (type)
+            {
+                case 0:
+                    MainSDK.service.GetApi(MainSDK.service.ServiceId).SendGroupMessage(group, body);
                     break;
                 default:
                     break;

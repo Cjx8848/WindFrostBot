@@ -55,18 +55,21 @@ namespace WindFrostBot.SDK
                 string msg = text.Split(" ")[0].ToLower();//指令消息
                 List<string> arg = text.Split(" ").ToList();
                 arg.Remove(text.Split(" ")[0]);//除去指令消息的其他段消息
-                var cmd =  Coms.Find(c => c.Names.Contains(msg));
-                if(cmd != null)
+                //var cmd =  Coms.Find(c => c.Names.Contains(msg));
+                foreach(var cmd in Coms)
                 {
-                    if (cmd.Type == 0)
+                    if (cmd != null && cmd.Names.Contains(msg))
                     {
-                        try
+                        if (cmd.Type == 0)
                         {
-                            cmd.Run(msg, arg,new QCommand(eventArgs));
-                        }
-                        catch (Exception ex)
-                        {
-                            Message.LogErro(ex.Message);
+                            try
+                            {
+                                cmd.Run(msg, arg, new QCommand(eventArgs));
+                            }
+                            catch (Exception ex)
+                            {
+                                Message.LogErro(ex.Message);
+                            }
                         }
                     }
                 }
