@@ -28,7 +28,7 @@ namespace WindFrostBot
                     args.Api.SendTextMessage("参数错误.");
                     return;
                 }
-                if(Utils.IsAdmin(qq))
+                if(SDK.Utils.IsAdmin(qq))
                 {
                     args.Api.SendTextMessage("此用户已经是管理了.");
                     return;
@@ -56,7 +56,7 @@ namespace WindFrostBot
                     args.Api.SendTextMessage("参数错误.");
                     return;
                 }
-                if (!Utils.IsAdmin(qq))
+                if (!SDK.Utils.IsAdmin(qq))
                 {
                     args.Api.SendTextMessage("此用户非管理.");
                     return;

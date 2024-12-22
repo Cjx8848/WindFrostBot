@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using Sora.Util;
 using System.Reflection;
 using System.Runtime.Loader;
-using Sora.EventArgs.SoraEvent;
 
 namespace WindFrostBot
 {
@@ -35,6 +34,7 @@ namespace WindFrostBot
         {
             Init();
             AnsiConsole.Write(new FigletText("WindFrostBot").Color(Spectre.Console.Color.Aqua));
+            Console.Title = "WindFrostBot1.0 | Cjx";
             ConfigWriter.InitConfig();
             Message.LogWriter.StartLog();
             DataBase.Init();
@@ -55,7 +55,7 @@ namespace WindFrostBot
         }
         public static  async void StartSora()
         {
-            Log.LogConfiguration.EnableConsoleOutput().SetLogLevel(LogLevel.Info);
+            //Log.LogConfiguration.EnableConsoleOutput().SetLogLevel(LogLevel.Info);
             MainSDK.service = SoraServiceFactory.CreateService(new ClientConfig()
             {
                 Host = MainSDK.BotConfig.HostIP,
@@ -89,7 +89,7 @@ namespace WindFrostBot
             MainSDK.service.Event.OnGroupRequest += async (msgType, eventArgs) =>
             {
                 MainSDK.OnGroupRequest.ExecuteAll(eventArgs);
-                if (Utils.IsOwner(eventArgs.Sender.Id))
+                if (SDK.Utils.IsOwner(eventArgs.Sender.Id))
                 {
                     await eventArgs.Accept();
                 }

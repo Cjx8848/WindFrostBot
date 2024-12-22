@@ -3,7 +3,7 @@ using Sora.Entities.Info;
 using Sora.Entities.Segment;
 using System;
 using System.Drawing;
-using System.Security.Principal;
+using System.Reflection;
 
 namespace WindFrostBot.SDK
 {

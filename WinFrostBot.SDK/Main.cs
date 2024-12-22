@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using Sora.EventArgs.SoraEvent;
 using Sora.Interfaces;
 
@@ -10,33 +9,60 @@ namespace WindFrostBot.SDK
         public static Config BotConfig { get; set; }
         public static ISoraService service { get; set; }
         public static IDbConnection Db { get; set; }
-
+        public static FunctionManager<CommandArgs> OnCommand = new FunctionManager<CommandArgs>();
         public static FunctionManager<GroupMemberChangeEventArgs> OnGroupMemberChange = new FunctionManager<GroupMemberChangeEventArgs>();
         public static FunctionManager<AddGroupRequestEventArgs> OnGroupRequest = new FunctionManager<AddGroupRequestEventArgs>();
-
     }
     public abstract class Plugin
     {
         //public List<IPrivateCommand> RegisteredPrivateCommands { get; } = new();
+        public string ?PluginPath { get; set; }
         public List<Command> Commands = new List<Command>();
         public abstract string PluginName();
         public abstract string Version();
         public abstract string Author();
         public abstract string Description();
         public abstract void OnLoad();
+        public virtual string OnReload()
+        {
+            return "";
+        }
+        public virtual void OnDispose()
+        {
+            var copylist = new List<Command>(Commands);
+            foreach(var command in copylist)
+            {
+                CommandManager.Coms.Remove(command);
+            }
+            if (MainSDK.OnCommand.functions.ContainsKey(PluginName()))
+            {
+                MainSDK.OnCommand.functions.Remove(PluginName());
+            }
+            if (MainSDK.OnGroupMemberChange.functions.ContainsKey(PluginName()))
+            {
+                MainSDK.OnGroupMemberChange.functions.Remove(PluginName());
+            }
+            if (MainSDK.OnGroupRequest.functions.ContainsKey(PluginName()))
+            {
+                MainSDK.OnGroupRequest.functions.Remove(PluginName());
+            }
+        }
     }
     public class FunctionManager<T>
     {
-        private List<Action<T>> functions = new List<Action<T>>();
-        public void AddFunction(Action<T> func)
+        public Dictionary<string, Action<T>> functions = new Dictionary<string, Action<T>>();
+        public void AddFunction(Plugin plugin ,Action<T> func)
         {
-            functions.Add(func);
+            if (!functions.ContainsKey(plugin.PluginName()))
+            {
+                functions.Add(plugin.PluginName(), func);
+            }
         }
         public void ExecuteAll(T args)
         {
             foreach (var func in functions)
             {
-                func(args);
+                func.Value(args);
             }
         }
     }

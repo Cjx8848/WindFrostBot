@@ -30,6 +30,39 @@ namespace WindFrostBot
         {
             Admin.Init(this);//添加管理指令
             Group.Init(this);//添加群聊指令
+            CommandManager.InitGroupCommand(this, Reload, "重读配置", "reload", "重读","重读配置");
+            //重读事件
+        }
+        public override string OnReload()
+        {
+            ConfigWriter.ReadConfig();
+            return "重读配置文件成功!";
+        }
+        public static void Reload(CommandArgs args)
+        {
+            if (!args.IsOwnner())
+            {
+                return;
+            }
+            try
+            {
+                int number = 0;
+                string reloadtext = "";
+                foreach (var plugin in PluginLoader.Plugins)
+                {
+                    string result = plugin.OnReload();
+                    number++;
+                    if (!string.IsNullOrEmpty(result))
+                    {
+                        reloadtext += $"\n[{plugin.PluginName()}]{result}";
+                    }
+                }
+                args.Api.SendTextMessage($"[{ConfigWriter.GetConfig().BotName}]成功执行了 {number} 个插件的重读函数!{reloadtext}");
+            }
+            catch (Exception ex)
+            {
+                args.Api.SendTextMessage($"[{ConfigWriter.GetConfig().BotName}]重读出错!");
+            }
         }
     }
 }

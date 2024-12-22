@@ -10,6 +10,7 @@ namespace WindFrostBot.SDK
         public List<string> Parameters { get; private set; }
         public long Account = 0;
         public long Group = 0;
+        public bool Handled = false;
         //public GroupMessageEventArgs EventArgs { get; private set; }
 
         public bool IsOwnner()
@@ -64,7 +65,12 @@ namespace WindFrostBot.SDK
                         {
                             try
                             {
-                                cmd.Run(msg, arg, new QCommand(eventArgs));
+                                var handler = new CommandArgs(msg, arg, new QCommand(eventArgs));
+                                MainSDK.OnCommand.ExecuteAll(handler);
+                                if (!handler.Handled)
+                                {
+                                    cmd.Run(msg, arg, new QCommand(eventArgs));
+                                }
                             }
                             catch (Exception ex)
                             {
