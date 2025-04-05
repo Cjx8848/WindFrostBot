@@ -1,12 +1,8 @@
-﻿using System;
-using System.Drawing;
-using WindFrostBot.SDK;
+﻿using WindFrostBot.SDK;
 using Spectre.Console;
 using Sora.Net.Config;
 using Sora;
-using ProtoBuf.Meta;
 using YukariToolBox.LightLog;
-using System.Threading.Tasks;
 using Sora.Util;
 using System.Reflection;
 using System.Runtime.Loader;
@@ -55,12 +51,28 @@ namespace WindFrostBot
         }
         public static  async void StartSora()
         {
-            //Log.LogConfiguration.EnableConsoleOutput().SetLogLevel(LogLevel.Info);
-            MainSDK.service = SoraServiceFactory.CreateService(new ClientConfig()
+            if (MainSDK.BotConfig.SoraLog)
             {
-                Host = MainSDK.BotConfig.HostIP,
-                Port = MainSDK.BotConfig.Port
-            });
+                Log.LogConfiguration.EnableConsoleOutput().SetLogLevel(LogLevel.Info);
+            }
+            if (!MainSDK.BotConfig.IsServer) 
+            {
+                MainSDK.service = SoraServiceFactory.CreateService(new ClientConfig()
+                {
+                    Host = MainSDK.BotConfig.HostIP,
+                    Port = MainSDK.BotConfig.Port
+                });
+            }
+            else
+            {
+                MainSDK.service = SoraServiceFactory.CreateService(new ServerConfig()
+                {
+                    Host = MainSDK.BotConfig.HostIP,
+                    Port = MainSDK.BotConfig.Port,
+                    UniversalPath = "v11"
+                });
+                Message.Info($"已在ws://{MainSDK.BotConfig.HostIP}:{MainSDK.BotConfig.Port}开启服务!");
+            }
             #region Log
             if (MainSDK.BotConfig.EnableLog)
             {
@@ -89,7 +101,7 @@ namespace WindFrostBot
             MainSDK.service.Event.OnGroupRequest += async (msgType, eventArgs) =>
             {
                 MainSDK.OnGroupRequest.ExecuteAll(eventArgs);
-                if (SDK.Utils.IsOwner(eventArgs.Sender.Id))
+                if (SDK.Utils.Utils.IsOwner(eventArgs.Sender.Id))
                 {
                     await eventArgs.Accept();
                 }

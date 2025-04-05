@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WindFrostBot.SDK
 {
-    public class Hooks
+    public class GroupAtArgs : EventArgs
     {
-
+        public long Account;
+        public QCommand Api;
+        public string Message;
+        public GroupAtArgs(QCommand qcmd, string message)
+        {
+            Account = qcmd.Account;
+            Api = qcmd;
+            Message = message;
+        }
     }
 }

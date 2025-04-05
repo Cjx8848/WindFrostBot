@@ -9,13 +9,13 @@ namespace WindFrostBot.SDK
         public static Config BotConfig { get; set; }
         public static ISoraService service { get; set; }
         public static IDbConnection Db { get; set; }
+        public static FunctionManager<GroupAtArgs> OnGroupAt = new FunctionManager<GroupAtArgs>();
         public static FunctionManager<CommandArgs> OnCommand = new FunctionManager<CommandArgs>();
         public static FunctionManager<GroupMemberChangeEventArgs> OnGroupMemberChange = new FunctionManager<GroupMemberChangeEventArgs>();
         public static FunctionManager<AddGroupRequestEventArgs> OnGroupRequest = new FunctionManager<AddGroupRequestEventArgs>();
     }
     public abstract class Plugin
     {
-        //public List<IPrivateCommand> RegisteredPrivateCommands { get; } = new();
         public string ?PluginPath { get; set; }
         public List<Command> Commands = new List<Command>();
         public abstract string PluginName();
@@ -45,6 +45,10 @@ namespace WindFrostBot.SDK
             if (MainSDK.OnGroupRequest.functions.ContainsKey(PluginName()))
             {
                 MainSDK.OnGroupRequest.functions.Remove(PluginName());
+            }
+            if (MainSDK.OnGroupAt.functions.ContainsKey(PluginName()))
+            {
+                MainSDK.OnGroupAt.functions.Remove(PluginName());
             }
         }
     }

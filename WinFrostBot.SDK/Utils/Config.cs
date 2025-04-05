@@ -4,6 +4,8 @@ namespace WindFrostBot.SDK
 {
     public class Config
     {
+        public bool SoraLog = true;
+        public bool IsServer = false;
         public string BotName = "WF";
         public bool EnableLog = true;
         public string HostIP = "127.0.0.1";

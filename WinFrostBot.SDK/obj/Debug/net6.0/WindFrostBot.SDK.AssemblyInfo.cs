@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WindFrostBot.SDK")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb041a3c3fbd6bc487fa899f6714f2030f624a7e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e22519b5fc34405385e795102118f68b37a35e4e")]
 [assembly: System.Reflection.AssemblyProductAttribute("WindFrostBot.SDK")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WindFrostBot.SDK")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

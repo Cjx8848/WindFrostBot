@@ -48,7 +48,7 @@ namespace WindFrostBot.SDK
             //群聊部分
             MainSDK.service.Event.OnGroupMessage += (sender, eventArgs) =>
             {
-                if (!Utils.CanSend(eventArgs.SourceGroup.Id))
+                if (!Utils.Utils.CanSend(eventArgs.SourceGroup.Id))
                 {
                     return ValueTask.CompletedTask;
                 }
@@ -57,7 +57,12 @@ namespace WindFrostBot.SDK
                 List<string> arg = text.Split(" ").ToList();
                 arg.Remove(text.Split(" ")[0]);//除去指令消息的其他段消息
                 //var cmd =  Coms.Find(c => c.Names.Contains(msg));
-                foreach(var cmd in Coms)
+                if (eventArgs.Message.GetAllAtList().Contains(eventArgs.LoginUid) && !eventArgs.Message.ToString().Contains("mp4") && !eventArgs.Message.ToString().Contains("amr"))
+                {
+                    var handler = new GroupAtArgs(new QCommand(eventArgs), eventArgs.Message.ToString());
+                    MainSDK.OnGroupAt.ExecuteAll(handler);
+                }
+                foreach (var cmd in Coms)
                 {
                     if (cmd != null && cmd.Names.Contains(msg))
                     {
@@ -75,6 +80,10 @@ namespace WindFrostBot.SDK
                             catch (Exception ex)
                             {
                                 Message.LogErro(ex.Message);
+                                if (ex.Message.Contains("System.NullReferenceException"))
+                                {
+                                    Environment.Exit(0);
+                                }
                             }
                         }
                     }
@@ -104,6 +113,10 @@ namespace WindFrostBot.SDK
                         catch (Exception ex)
                         {
                             Message.LogErro(ex.Message);
+                            if (ex.Message.Contains("System.NullReferenceException"))
+                            {
+                                Environment.Exit(0);
+                            }
                         }
                     }
                 }
@@ -111,7 +124,7 @@ namespace WindFrostBot.SDK
             };
             MainSDK.service.Event.OnGroupRequest += (sender, eventArgs) =>
             {
-                if (Utils.IsOwner(eventArgs.Sender.Id))
+                if (Utils.Utils.IsOwner(eventArgs.Sender.Id))
                 {
                     eventArgs.Accept();
                 }
@@ -199,6 +212,10 @@ namespace WindFrostBot.SDK
             catch(Exception ex)
             {
                 Message.Erro("指令出错!:" + ex.ToString());
+                if (ex.ToString().ToLower().Contains("null"))
+                {
+                    Environment.Exit(0);
+                }
             }
             return true;
         }
